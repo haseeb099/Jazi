@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -28,7 +27,6 @@ import {
   Bot,
   ChevronRight,
   ChevronLeft,
-  Globe,
   Smartphone,
   Monitor,
 } from "lucide-react"
@@ -104,7 +102,6 @@ export function OnboardingWizard({ userEmail, userId }: OnboardingWizardProps) {
   const [step, setStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
 
   // Step 1: Workspace
   const [companyName, setCompanyName] = useState("")
@@ -127,55 +124,35 @@ export function OnboardingWizard({ userEmail, userId }: OnboardingWizardProps) {
     setIsLoading(true)
 
     try {
-      // Create tenant
-      const { data: tenant, error: tenantError } = await supabase
-        .from("tenants")
-        .insert({
-          name: companyName,
-          slug,
-          phone_mode: phoneMode,
-        })
-        .select()
-        .single()
-
-      if (tenantError) throw tenantError
-
-      // Update user with tenant_id
-      const { error: userError } = await supabase
-        .from("users")
-        .update({
-          tenant_id: tenant.id,
-          is_onboarded: true,
-          role: "owner",
-        })
-        .eq("id", userId)
-
-      if (userError) throw userError
-
-      // Create first agent
       const template = AGENT_TEMPLATES.find((t) => t.id === selectedTemplate)
-      const { error: agentError } = await supabase.from("agents").insert({
-        tenant_id: tenant.id,
-        name: agentName,
-        system_prompt: template?.prompt || "You are a helpful AI assistant.",
-        status: "active",
-        timezone,
+      
+      const response = await fetch("/api/onboarding", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          companyName,
+          slug,
+          timezone,
+          phoneMode,
+          agentName,
+          agentPrompt: template?.prompt || "You are a helpful AI assistant.",
+        }),
       })
 
-      if (agentError) throw agentError
+      const data = await response.json()
 
-      // Create tenant branding
-      await supabase.from("tenant_branding").insert({
-        tenant_id: tenant.id,
-        company_name: companyName,
-      })
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to complete setup")
+      }
 
       toast.success("Your workspace is ready!")
       router.push("/dashboard")
       router.refresh()
     } catch (error) {
       console.error(error)
-      toast.error("Failed to complete setup. Please try again.")
+      toast.error(error instanceof Error ? error.message : "Failed to complete setup. Please try again.")
     } finally {
       setIsLoading(false)
     }

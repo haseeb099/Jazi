@@ -37,12 +37,12 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="text-2xl font-bold text-white">Jazi</div>
           <div className="flex gap-4">
-            <Link href="/auth/login">
+            <Link href="/login">
               <Button variant="ghost" className="text-white">
                 Login
               </Button>
             </Link>
-            <Link href="/auth/signup">
+            <Link href="/signup">
               <Button className="bg-indigo-600 hover:bg-indigo-700">
                 Get Started
               </Button>
@@ -60,7 +60,7 @@ export default function HomePage() {
           Build, deploy, and scale AI-powered voice agents for sales, support, and customer service. HITL controls, enterprise-grade security, and complete white-labeling.
         </p>
         <div className="flex gap-4 justify-center">
-          <Link href="/auth/signup">
+          <Link href="/signup">
             <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700">
               Start Free Trial <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
@@ -149,7 +149,7 @@ export default function HomePage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
         <h2 className="text-3xl font-bold text-white mb-6">Ready to Get Started?</h2>
         <p className="text-slate-300 mb-8">Launch your AI voice agent platform in minutes</p>
-        <Link href="/auth/signup">
+        <Link href="/signup">
           <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700">
             Start Free Trial <ArrowRight className="ml-2 w-4 h-4" />
           </Button>

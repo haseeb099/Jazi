@@ -44,6 +44,7 @@ export function SignupForm() {
 
       toast.success("Check your email to confirm your account")
       router.push("/signup/success")
+      router.refresh()
     } catch {
       toast.error("An unexpected error occurred")
     } finally {
