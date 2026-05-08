@@ -63,7 +63,7 @@ export function CallVolumeChart({ data }: CallVolumeChartProps) {
               />
               <Tooltip
                 content={({ active, payload, label }) => {
-                  if (!active || !payload) return null
+                  if (!active || !payload || typeof label !== 'string') return null
                   return (
                     <div className="rounded-lg border bg-background p-3 shadow-md">
                       <p className="text-sm font-medium">
