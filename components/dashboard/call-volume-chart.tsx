@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import {
   Card,
   CardContent,
@@ -31,8 +32,13 @@ interface CallVolumeChartProps {
 }
 
 export function CallVolumeChart({ data }: CallVolumeChartProps) {
+  const [mounted, setMounted] = useState(false)
   const totalCalls = data.reduce((acc, d) => acc + d.calls, 0)
   const avgCalls = data.length > 0 ? Math.round(totalCalls / data.length) : 0
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   
   return (
     <Card className="bg-card/50 border-border/50">
@@ -52,8 +58,13 @@ export function CallVolumeChart({ data }: CallVolumeChartProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-72 min-h-[288px]">
-          <ResponsiveContainer width="100%" height="100%" minWidth={300} minHeight={280}>
+        <div className="h-72 min-h-[288px] w-full">
+          {!mounted ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="animate-pulse text-muted-foreground">Loading chart...</div>
+            </div>
+          ) : (
+          <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={data}
               margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
@@ -153,6 +164,7 @@ export function CallVolumeChart({ data }: CallVolumeChartProps) {
               />
             </AreaChart>
           </ResponsiveContainer>
+          )}
         </div>
       </CardContent>
     </Card>
