@@ -58,13 +58,13 @@ export function CallVolumeChart({ data }: CallVolumeChartProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-72 min-h-[288px] w-full">
+        <div className="w-full" style={{ height: 288, minHeight: 288 }}>
           {!mounted ? (
             <div className="flex items-center justify-center h-full">
               <div className="animate-pulse text-muted-foreground">Loading chart...</div>
             </div>
           ) : (
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="99%" height={280}>
             <AreaChart
               data={data}
               margin={{ top: 10, right: 10, left: -20, bottom: 0 }}

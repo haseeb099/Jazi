@@ -46,6 +46,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { CreateAgentForm } from '@/components/agents/create-agent-form'
 import { toast } from 'sonner'
+import Link from 'next/link'
 import type { Agent } from '@/types/database'
 
 const AGENT_TEMPLATES = [
@@ -450,17 +451,21 @@ export default function AgentsPage() {
 
                 {/* Actions */}
                 <div className="flex gap-2 pt-2">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Play className="mr-1.5 size-3" />
-                    Test
-                  </Button>
-                  <Button 
-                    size="sm" 
-                    className="flex-1 gradient-primary text-white border-0"
-                  >
-                    Configure
-                    <ChevronRight className="ml-1.5 size-3" />
-                  </Button>
+                  <Link href={`/agents/${agent.id}`} className="flex-1">
+                    <Button variant="outline" size="sm" className="w-full">
+                      <Play className="mr-1.5 size-3" />
+                      Test
+                    </Button>
+                  </Link>
+                  <Link href={`/agents/${agent.id}`} className="flex-1">
+                    <Button 
+                      size="sm" 
+                      className="w-full gradient-primary text-white border-0"
+                    >
+                      Configure
+                      <ChevronRight className="ml-1.5 size-3" />
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>

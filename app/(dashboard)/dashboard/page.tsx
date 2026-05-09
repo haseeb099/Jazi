@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import Link from "next/link"
 import { createClient } from "@/lib/supabase/server"
 import { MetricCard } from "@/components/dashboard/metric-card"
 import { CallVolumeChart } from "@/components/dashboard/call-volume-chart"
@@ -166,22 +167,30 @@ function QuickActions() {
         <CardDescription>Get started with common tasks</CardDescription>
       </CardHeader>
       <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50">
-          <Bot className="size-5 text-primary" />
-          <span className="text-xs">New Agent</span>
-        </Button>
-        <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50">
-          <Phone className="size-5 text-accent" />
-          <span className="text-xs">Test Call</span>
-        </Button>
-        <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50">
-          <Users className="size-5 text-success" />
-          <span className="text-xs">Add Lead</span>
-        </Button>
-        <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50">
-          <Zap className="size-5 text-warning" />
-          <span className="text-xs">Integrations</span>
-        </Button>
+        <Link href="/agents">
+          <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50 w-full">
+            <Bot className="size-5 text-primary" />
+            <span className="text-xs">New Agent</span>
+          </Button>
+        </Link>
+        <Link href="/calls">
+          <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50 w-full">
+            <Phone className="size-5 text-accent" />
+            <span className="text-xs">View Calls</span>
+          </Button>
+        </Link>
+        <Link href="/crm/leads">
+          <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50 w-full">
+            <Users className="size-5 text-success" />
+            <span className="text-xs">Add Lead</span>
+          </Button>
+        </Link>
+        <Link href="/integrations">
+          <Button variant="outline" className="h-auto py-4 flex flex-col gap-2 bg-card/50 w-full">
+            <Zap className="size-5 text-warning" />
+            <span className="text-xs">Integrations</span>
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   )
