@@ -52,8 +52,8 @@ export function CallVolumeChart({ data }: CallVolumeChartProps) {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-72">
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="h-72 min-h-[288px]">
+          <ResponsiveContainer width="100%" height="100%" minWidth={300} minHeight={280}>
             <AreaChart
               data={data}
               margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
