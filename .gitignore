@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+build/
+next-env.d.ts.bak
+
+# Environment files: never commit real secrets
+.env
+.env.*
+!.env.example
+
+# Logs and local tooling
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+*.tsbuildinfo
+
+# Vercel
+.vercel
